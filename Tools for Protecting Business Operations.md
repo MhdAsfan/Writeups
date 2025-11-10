@@ -64,6 +64,6 @@ By mastering **SIEM tools**, **packet sniffers**, and **playbooks**, analysts ca
 ---
 
 ## 🧑‍💻 Author
-**Bugbro — Cybersecurity & Bug Bounty Enthusiast**
+**MhdASfan — Cybersecurity & Bug Bounty Enthusiast**
 
 If you found this helpful, ⭐️ star the repo or share it with others learning cybersecurity!
