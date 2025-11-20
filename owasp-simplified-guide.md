@@ -1,5 +1,5 @@
 # OWASP Testing & Bug Bounty Interview Guide
-## Simplified Edition - Quick Reference
+## Quick Reference
 
 ---
 
