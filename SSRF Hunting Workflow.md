@@ -1,10 +1,10 @@
-```markdown
-# CompleteSSRF Hunting Workflow Guide  
+# Complete SSRF Hunting Workflow Guide  
 **From Beginner to Pro Bug Bounty Hunter**  
 
 **Target Example:** `example.test000.com` (replace with your real target)  
 **Time Required:** 1–2 hours (mid-sized program)  
 **Tools:** All free & open-source  
+
 
 ---
 
