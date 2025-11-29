@@ -1,12 +1,12 @@
 # Beginner-Friendly Cybersecurity Writeups 🔐
 
-This repository contains clear, beginner-friendly cybersecurity writeups, CTF solutions, and security research notes, focused on helping learners understand real-world vulnerabilities step by step.[web:18]
+This repository contains clear, beginner-friendly cybersecurity writeups, CTF solutions, and security research notes, focused on helping learners understand real-world vulnerabilities step by step.
 
 ## Repository Goals
 
-- Document CTF and TryHackMe / HackTheBox walkthroughs in a simple, structured way.[web:18]
-- Share practical web application security and bug bounty notes that others can reuse for learning.[web:18]
-- Build a public portfolio of security research and responsible vulnerability disclosures.[web:18]
+- Document CTF and TryHackMe / HackTheBox walkthroughs in a simple, structured way.
+- Share practical web application security and bug bounty notes that others can reuse for learning.
+- Build a public portfolio of security research and responsible vulnerability disclosures.
 
 ## Structure
 
@@ -14,7 +14,7 @@ This repository contains clear, beginner-friendly cybersecurity writeups, CTF so
 - `web-security/` – Notes and PoCs for web application vulnerabilities.
 - `research/` – Deeper dives into CVEs, techniques, and security concepts.
 
-(Adjust folder names above to match your actual repo layout.)
+
 
 ## How To Use
 
@@ -35,5 +35,5 @@ Open a pull request with a short description of your change.
 ## Author
 
 Created and maintained by **Mhd Asfan** (Cybersecurity researcher & aspiring bug bounty hunter).  
-Check out the repository here: [https://github.com/MhdAsfan/Writeups](https://github.com/MhdAsfan/Writeups).[web:11]
+Check out the repository here: [https://github.com/MhdAsfan/Writeups](https://github.com/MhdAsfan/Writeups).
 
