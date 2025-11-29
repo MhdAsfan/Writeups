@@ -1,4 +1,4 @@
-```markdown
+``markdown
 # Complete SSRF Hunting Workflow Guide  
 **Beginner to Pro • GitHub-Ready • Colorful • Report-Ready**
 
@@ -163,10 +163,7 @@ chmod +x ssrf_hunt.sh
 
 ---
 
-**Copy everything above → save as `SSRF-Guide.md` → push to GitHub**  
-It renders perfectly with tables, code blocks, emojis, and checklists.
+
 
 Happy hunting!
-```
-
-Just copy from the first `#` to the very last line — ready for GitHub, Notion, Obsidian, or PDF export!
+``
