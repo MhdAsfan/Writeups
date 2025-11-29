@@ -168,15 +168,12 @@ echo "Done! Check your Collaborator for hits."
 ```
 
 Run:  
-```bash
+``bash
 chmod +x ssrf_hunt.sh
 ./ssrf_hunt.sh example.test000.com yourcollab.oastify.com
-```
+``
 
 ---
-
-**You now have a 100% GitHub-ready, colorful, checklist-packed SSRF guide.**  
-Just copy everything above, save as `SSRF-Hunting-Guide.md`, push to your repo — it renders perfectly on GitHub with tables, code blocks, emojis, and checklists!
 
 Happy hunting!
 ```
