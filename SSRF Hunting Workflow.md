@@ -27,7 +27,7 @@ Subdomain Enum → Deduplicate → Live Probe → URL Collection → Filter Para
 - [ ] `amass` installed  
 - [ ] `assetfinder` installed  
 
-```bash
+``bash
 # Fast & passive
 subfinder -d example.test000.com -o subfinder.txt
 
@@ -36,19 +36,19 @@ amass enum -passive -d example.test000.com -o amass.txt
 
 # Quick API hits
 assetfinder --subs-only example.test000.com > assetfinder.txt
-```
+``
 
 ### 2. Deduplicate Subdomains
 
-```bash
+``bash
 cat subfinder.txt amass.txt assetfinder.txt | sort -u > domains.txt
-```
+``
 
 ### 3. Probe Live Hosts
 
-```bash
+``bash
 cat domains.txt | httpx -silent -threads 200 > live.txt
-```
+``
 
 **Pro tip:** Add `-title -tech-detect -status-code` for extra intel.
 
@@ -56,7 +56,7 @@ cat domains.txt | httpx -silent -threads 200 > live.txt
 
 ### 4. Collect All Possible URLs
 
-```bash
+``bash
 # Historical URLs (Wayback + CommonCrawl + OTX)
 cat live.txt | gau --subs > gau.txt
 
@@ -65,7 +65,7 @@ katana -list live.txt -silent -jc -d 3 -rl 100 > katana.txt
 
 # Wayback only (sometimes finds things others miss)
 cat live.txt | waybackurls > wayback.txt
-```
+``
 
 ### 5. Merge & Deduplicate URLs
 
@@ -75,7 +75,7 @@ cat gau.txt katana.txt wayback.txt | sort -u > all_urls.txt
 
 ### 6. Keep Only URLs with Parameters (SSRF sweet spot)
 
-```bash
+``bash
 cat all_urls.txt | grep "=" > params.txt
 
 # Optional: focus on juicy param names
@@ -106,10 +106,9 @@ for f in batch_*; do cat "$f" | httpx -fr -silent; sleep 2; done
 ```
 
 ---
-
 ### 10. Professional SSRF Report Template (Copy-Paste Ready)
 
-```markdown
+``markdown
 # SSRF Vulnerability – Critical
 
 ## Summary
