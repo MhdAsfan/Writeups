@@ -88,7 +88,7 @@ for f in batch_*; do cat "$f" | httpx -fr -silent -rl 100; sleep 2; done
 
 ### 10. Professional Report Template (Copy-Paste Ready)
 
-```markdown
+``markdown
 # SSRF (Server-Side Request Forgery) - Critical
 
 ## Summary
