@@ -6,11 +6,11 @@ If you're starting your journey in web security or bug bounty hunting, **Burp Su
 
 Burp Suite is a **comprehensive web application security testing platform** created by PortSwigger that has become the industry standard since its creation in 2003[1][2]. Think of it as your personal security lab where you can safely examine how websites work, find vulnerabilities, and understand the hidden conversations between your browser and web servers.
 
-At its core, Burp Suite functions as an **HTTP interception proxy**—it sits between your browser and the website you're testing, letting you see, capture, and modify all the traffic flowing back and forth[3][4]. This gives you unprecedented visibility into web application behavior and potential security flaws.
+At its core, Burp Suite functions as an **HTTP interception proxy**—it sits between your browser and the website you're testing, letting you see, capture, and modify all the traffic flowing back and forth. This gives you unprecedented visibility into web application behavior and potential security flaws.
 
 ### Two Versions Available
 
-**Community Edition (Free)**[2][5]
+**Community Edition (Free)**
 - Perfect for beginners and learning
 - Includes all core tools for manual testing
 - Used by a majority of security professionals as their starting point
@@ -52,11 +52,11 @@ The Dashboard is where you can:
 
 ## Target: Mapping Your Battlefield
 
-The **Target** tab is where Burp Suite organizes everything it learns about the websites you're testing[6][7][8]. This is your strategic map of the application.
+The **Target** tab is where Burp Suite organizes everything it learns about the websites you're testing. This is your strategic map of the application.
 
 ### 1. Site Map: Your Reconnaissance Tool
 
-The **Site Map** is like a family tree of every webpage you've visited. It shows[6][7][9]:
+The **Site Map** is like a family tree of every webpage you've visited. It shows
 - All URLs you've browsed
 - Directory structure of the website
 - Files and parameters discovered
@@ -117,13 +117,13 @@ Content-Type: application/x-www-form-urlencoded
 username=john&password=password123
 ```
 
-You could change the username to `admin` before forwarding it—testing if the application properly validates users[10][13].
+You could change the username to `admin` before forwarding it—testing if the application properly validates users.
 
 **Turn Intercept OFF** when you just want to browse normally and let traffic flow freely without pausing each request.
 
 ### HTTP History: Your Complete Audit Trail
 
-Think of this as your **complete audit trail**. Every single request and response is recorded here, even when Intercept is OFF[10][13]. You can:
+Think of this as your **complete audit trail**. Every single request and response is recorded here, even when Intercept is OFF. You can:
 - Search through past requests
 - Sort by time, URL, status code
 - Review responses
