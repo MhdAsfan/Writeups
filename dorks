@@ -1,5 +1,4 @@
 "submit vulnerability report"
-
 "submit vulnerability report" | "powered by bugcrowd" | "powered by hackerone"
 site:*.gov.* "responsible disclosure"
 intext:"we take security very seriously"
