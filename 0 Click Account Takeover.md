@@ -4,7 +4,7 @@ A beginner-friendly breakdown of a 0-click account takeover caused by an insecur
 
 ## Prerequisites / Tools
 - Kali Linux
-- Burp Suite Community (or Pro)
+- Burp Suite Community (or Pro) 
 - Any test web app with a password-reset feature (local or lab)
 
 ## Step-by-Step Methodology
