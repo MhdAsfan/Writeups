@@ -7,7 +7,7 @@ A beginner-friendly breakdown of a 0-click account takeover caused by an insecur
 - Burp Suite Community (or Pro) 
 - Any test web app with a password-reset feature (local or lab)
 
-## Step-by-Step Methodology
+## Step-by-Step Methodology 
 
 ### 1. Find the Reset Flow
 Request a password reset for your own test account to capture how the application sends reset links.
