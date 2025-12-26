@@ -23,7 +23,6 @@
   - [ ] All accounts
   - [ ] Privileged accounts
   - [ ] Sensitive actions
-[web:254][web:268]
 
 ---
 
@@ -40,7 +39,6 @@
 - [ ] Try:
   - [ ] Register victim’s phone/email on attacker account.
   - [ ] Observe if 2FA codes now work for both accounts or allow takeover.
-[web:254][web:267]
 
 ---
 
@@ -63,7 +61,6 @@
   - [ ] Specific session / device
   - [ ] Specific user
   - [ ] Or can it be used cross-session / cross-user
-[web:254][web:265][web:266]
 
 ---
 
@@ -81,7 +78,6 @@
 - [ ] Check “Remember this device”:
   - [ ] Is the device token guessable or reusable?
   - [ ] Can attacker steal or replay device tokens?
-[web:254][web:268]
 
 ---
 
@@ -98,7 +94,6 @@
   - [ ] CSRF on disable/reset 2FA endpoints.
   - [ ] Clickjacking on 2FA settings pages.
   - [ ] IDOR on 2FA management APIs (changing 2FA for another user).
-[web:265][web:268]
 
 ---
 
@@ -115,7 +110,6 @@
 - [ ] Test if backup flows **bypass 2FA entirely** with:
   - [ ] Just email access.
   - [ ] Easily guessed or OSINT-able information.
-[web:262][web:267]
 
 ---
 
@@ -129,7 +123,6 @@
   - [ ] No binding between OTP and originating session.
 - [ ] Evaluate push-based MFA:
   - [ ] Can “MFA fatigue” be abused (spam push approvals)?
-[web:259][web:264]
 
 ---
 
@@ -143,7 +136,6 @@
 - [ ] Check for:
   - [ ] Missing authentication on 2FA APIs.
   - [ ] Weak binding between session and OTP verification request.
-[web:268]
 
 ---
 
@@ -157,7 +149,6 @@
 - [ ] Remember-me and device cookies:
   - [ ] Are they protected with Secure/HttpOnly/SameSite flags?
   - [ ] Are they easily guessable or brute-forceable?
-[web:254][web:262]
 
 ---
 
@@ -172,4 +163,3 @@ When you find an issue:
 - [ ] Map against:
   - [ ] Common 2FA bypass categories (improper implementation, logic flaws, weak backup methods).
   - [ ] Program’s payout guidelines for MFA/ATO if available.
-[web:256][web:267]
